@@ -20,11 +20,24 @@ class Products extends Component {
 
     render() {
         return (
-            this.state.sneakers.map((sneaker, index) =>
-                <Product key={index} sneaker={sneaker} />
-            )
+            <div style={mainProductsContainer}>
+                {
+                    this.state.sneakers.map((sneaker, index) =>
+                        sneaker.media.imageUrl
+                        && <Product key={index} sneaker={sneaker} />
+                    )
+                }
+            </div>
         )
     }
+}
+
+const mainProductsContainer = {
+    display: 'flex',
+    flexWrap: 'wrap'
+    // width: '100vw',
+    // height: '100vh',
+
 }
 
 export default Products

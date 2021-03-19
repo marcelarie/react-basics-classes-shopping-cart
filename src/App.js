@@ -6,12 +6,19 @@ import api from './api/data.js'
 function App() {
 
     return (
-        <div className="App">
+        <>
             <HeaderStore />
-            <Products api={api} />
-            <ShoppingCart />
-        </div>
+            <div style={appContainer}>
+                <Products api={api} />
+                <ShoppingCart />
+            </div >
+        </>
     );
+}
+
+const appContainer = {
+    display: 'flex',
+    margin: 0
 }
 
 export default App;
