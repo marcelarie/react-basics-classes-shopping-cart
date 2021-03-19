@@ -3,22 +3,35 @@ import Products from './components/Store/Products'
 import ShoppingCart from './components/Store/ShoppingCart'
 import api from './api/data.js'
 
-function App() {
+import { Component } from 'react'
+// import { createContext } from 'react'
 
-    return (
-        <>
-            <HeaderStore />
-            <div style={appContainer}>
-                <Products api={api} />
-                <ShoppingCart />
-            </div >
-        </>
-    );
+// const appContext = createContext('0');
+
+class App extends Component {
+    constructor() {
+        super()
+        this.state = {
+            shopping: []
+        }
+    }
+    render() {
+        return (
+            <>
+                <HeaderStore />
+                <div style={appContainer}>
+                    <Products api={api} state={this.state} />
+                    <ShoppingCart api={api} state={this.state} />
+                </div>
+            </>
+        )
+    }
 }
 
 const appContainer = {
     display: 'flex',
-    margin: 0
+    width: '80%',
+    margin: '0 auto'
 }
 
 export default App;

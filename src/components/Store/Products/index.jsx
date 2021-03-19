@@ -5,9 +5,8 @@ class Products extends Component {
 
     constructor(props) {
         super(props)
-        this.state = {
-            sneakers: []
-        }
+        this.state = this.props.state
+        this.state.sneakers = []
         this.api = this.props.api
     }
 
@@ -24,7 +23,7 @@ class Products extends Component {
                 {
                     this.state.sneakers.map((sneaker, index) =>
                         sneaker.media.imageUrl
-                        && <Product key={index} sneaker={sneaker} />
+                        && <Product key={index} state={this.state} sneaker={sneaker} />
                     )
                 }
             </div>
@@ -34,10 +33,10 @@ class Products extends Component {
 
 const mainProductsContainer = {
     display: 'flex',
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
+    flex: 3,
     // width: '100vw',
     // height: '100vh',
-
 }
 
 export default Products

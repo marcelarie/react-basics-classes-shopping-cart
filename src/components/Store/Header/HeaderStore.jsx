@@ -2,7 +2,7 @@ import { Component } from 'react'
 
 class HeaderStore extends Component {
     render() {
-        return <h1 style={style}> STORE</h1 >
+        return <p style={style}> STORE</p >
     }
 }
 

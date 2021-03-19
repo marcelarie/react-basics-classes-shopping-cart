@@ -3,24 +3,27 @@ import { Component } from 'react'
 class Product extends Component {
     constructor(props) {
         super(props)
+        this.state = this.props.state
         this.sneaker = this.props.sneaker
+        this.methods = this.props.state.methods
     }
 
     render() {
-        console.log(this.sneaker)
         const price = this.sneaker.retailPrice;
         return (
             <div style={productContainer}>
                 <img style={{ width: '150px' }} src={this.sneaker.media.thumbUrl} alt={this.sneaker.name} />
-                <h1 style={productTitle}>{this.sneaker.name}</h1>
+                <p style={productTitle}>{this.sneaker.name}</p>
                 <p>{this.sneaker.brand}</p>
                 <p>{price ? price : '100'} €</p>
-                <button style={productButton}>Add to card</button>
+                <p style={productButton}
+                    onClick={() => this.methods.renderSneaker(this.sneaker.id, 1)}
+                >Add to card</p>
             </div>
         )
     }
-
 }
+
 const productContainer = {
     flex: '1 0 21%',
     margin: '0.5rem',
@@ -46,6 +49,7 @@ const productButton = {
     width: '8rem',
     fontSize: '0.8rem',
     padding: '0.5rem 0.1rem',
+    verticalAlign: 'middle'
 
 }
 
