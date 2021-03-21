@@ -5,6 +5,7 @@ class ProductShoppingCart extends Component {
         super(props)
         this.sneaker = this.props.item
         this.addToList = this.props.addToList
+        this.shoppingList = this.props.shoppingList
     }
 
     handleChange = (e, mode) => {
@@ -20,26 +21,32 @@ class ProductShoppingCart extends Component {
         this.forceUpdate();
     }
 
+    removeItemOfCart = (event, id) => {
+        event.preventDefault();
+        delete this.shoppingList[id]
+        this.addToList(this.props.shoppingList)
+    }
+
     render() {
         const price = this.sneaker.retailPrice;
         return (
             <>
-            <p style={shoppingProductTitle}>{this.sneaker.name}</p>
-            <div style={shoppingProductContainer}>
-                <div style={{ flex:2 }}>
-                    <img style={{ width: '100%', minWidth: '70px'}} src={this.sneaker.media.smallImageUrl} alt={this.sneaker.name} />
+                <p style={shoppingProductTitle}>{this.sneaker.name}</p>
+                <div style={shoppingProductContainer}>
+                    <div style={{ flex: 2 }}>
+                        <img style={{ width: '100%', minWidth: '70px' }} src={this.sneaker.media.smallImageUrl} alt={this.sneaker.name} />
+                    </div>
+                    <form style={shoppingProductInfo}>
+                        <button min="1" max="50" value={this.sneaker.quantity} onClick={(e) => this.handleChange(e, true)}>+</button>
+                        {
+                            this.sneaker.quantity > 1 &&
+                            <button min="1" max="50" value={this.sneaker.quantity} onClick={(e) => this.handleChange(e, false)}>-</button>
+                        }
+                        <p>x{this.sneaker.quantity}</p>
+                        <p>{price ? price * this.sneaker.quantity : 100 * this.sneaker.quantity} €</p>
+                        <button onClick={e => this.removeItemOfCart(e, this.sneaker.id)}>Remove</button>
+                    </form>
                 </div>
-                <form style={shoppingProductInfo}>
-                    <button min="1" max="50" value={this.sneaker.quantity} onClick={(e) => this.handleChange(e, true)}>+</button>
-                    {
-                    this.sneaker.quantity > 1 &&
-                        <button min="1" max="50" value={this.sneaker.quantity} onClick={(e) => this.handleChange(e, false)}>-</button>
-                    }
-                    <p>x{this.sneaker.quantity}</p>
-                    <p>{price ? price * this.sneaker.quantity : 100 * this.sneaker.quantity} €</p>
-                    <button>Remove</button>
-                </form>
-            </div>
             </>
         )
     }
