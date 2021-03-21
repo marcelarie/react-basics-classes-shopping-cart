@@ -12,7 +12,7 @@ class App extends Component {
     constructor() {
         super()
         this.state = {}
-        this.shoppingList = []
+        this.shoppingList = {}
         this.appMethods = {
             addToList: this.addToList.bind(this)
         }
@@ -40,6 +40,7 @@ class App extends Component {
                     <ShoppingCart
                         api={api}
                         shoppingList={this.shoppingList}
+                        appMethods={this.appMethods}
                         state={this.state}
                     />
 

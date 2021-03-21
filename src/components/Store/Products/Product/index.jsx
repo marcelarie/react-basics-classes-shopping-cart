@@ -10,9 +10,18 @@ class Product extends Component {
     }
 
     addProductToList = function(product) {
-        this.shoppingList.push(product)
-        this.addToList(this.shoppingList)
+        const currentProductOnList = this.shoppingList[product.id];
 
+        this.shoppingList[product.id] = product
+
+        // filter quantity 
+        if (currentProductOnList) {
+            this.shoppingList[product.id].quantity++;
+        } else {
+            this.shoppingList[product.id].quantity = 1;
+        }
+
+        this.addToList(this.shoppingList)
     }
 
     render() {
