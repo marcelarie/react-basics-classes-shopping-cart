@@ -19,7 +19,7 @@ class Product extends Component {
         const price = this.sneaker.retailPrice;
         return (
             <div style={productContainer}>
-                <img style={{ width: '150px' }} src={this.sneaker.media.thumbUrl} alt={this.sneaker.name} />
+                <img style={{ width: '150px' }} src={this.sneaker.media.smallImageUrl} alt={this.sneaker.name} />
                 <p style={productTitle}>{this.sneaker.name}</p>
                 <p>{this.sneaker.brand}</p>
                 <p>{price ? price : '100'} €</p>

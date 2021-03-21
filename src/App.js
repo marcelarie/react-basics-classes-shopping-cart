@@ -14,18 +14,20 @@ class App extends Component {
         this.state = {}
         this.shoppingList = []
         this.appMethods = {
-            addToList: this.addToList
+            addToList: this.addToList.bind(this)
         }
     }
 
     addToList = function(list) {
-        console.log(list)
+        this.shoppingList = list
+        this.setState(this.state)
     }
 
     render() {
         return (
             <>
                 <HeaderStore />
+
                 <div style={appContainer}>
 
                     <Products
@@ -35,7 +37,11 @@ class App extends Component {
                         shoppingList={this.shoppingList}
                     />
 
-                    <ShoppingCart api={api} state={this.state} />
+                    <ShoppingCart
+                        api={api}
+                        shoppingList={this.shoppingList}
+                        state={this.state}
+                    />
 
                 </div>
             </>

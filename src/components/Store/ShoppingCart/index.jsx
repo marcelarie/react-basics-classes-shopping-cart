@@ -1,11 +1,12 @@
 import { Component } from 'react'
-// import ProductShoppingCart from './Product'
+import ProductShoppingCart from './Product'
 
 class ShoppingCart extends Component {
 
-    // constructor(props) {
-    // super(props)
-    // }
+    constructor(props) {
+        super(props)
+        this.shoppingList = this.props.shoppingList
+    }
 
     render() {
         return (
@@ -13,7 +14,11 @@ class ShoppingCart extends Component {
                 <p>Shopping Cart</p>
                 <hr />
                 <p>TOTAL</p>
-                <p>{this.list}</p>
+                {
+                    this.shoppingList.map(item => {
+                        return <ProductShoppingCart item={item} />
+                    })
+                }
                 <hr />
                 <p>Checkout</p>
             </div >
