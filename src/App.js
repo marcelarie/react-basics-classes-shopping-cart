@@ -11,16 +11,32 @@ import { Component } from 'react'
 class App extends Component {
     constructor() {
         super()
-        this.state = {
+        this.state = {}
+        this.shoppingList = []
+        this.appMethods = {
+            addToList: this.addToList
         }
     }
+
+    addToList = function(list) {
+        console.log(list)
+    }
+
     render() {
         return (
             <>
                 <HeaderStore />
                 <div style={appContainer}>
-                    <Products api={api} state={this.state} />
+
+                    <Products
+                        api={api}
+                        state={this.state}
+                        appMethods={this.appMethods}
+                        shoppingList={this.shoppingList}
+                    />
+
                     <ShoppingCart api={api} state={this.state} />
+
                 </div>
             </>
         )

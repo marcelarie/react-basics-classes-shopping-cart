@@ -6,10 +6,13 @@ class Product extends Component {
         this.state = this.props.state
         this.sneaker = this.props.sneaker
         this.shoppingList = this.props.shoppingList
+        this.addToList = this.props.appMethods.addToList
     }
 
     addProductToList = function(product) {
         this.shoppingList.push(product)
+        this.addToList(this.shoppingList)
+
     }
 
     render() {

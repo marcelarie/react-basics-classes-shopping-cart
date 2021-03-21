@@ -8,7 +8,8 @@ class Products extends Component {
         this.state = this.props.state
         this.state.sneakers = []
         this.api = this.props.api
-        this.shoppingList = []
+        this.shoppingList = this.props.shoppingList
+        this.appMethods = this.props.appMethods
     }
 
     componentDidMount() {
@@ -24,7 +25,14 @@ class Products extends Component {
                 {
                     this.state.sneakers.map((sneaker, index) =>
                         sneaker.media.imageUrl
-                        && <Product key={index} state={this.state} shoppingList={this.shoppingList} sneaker={sneaker} />
+                        &&
+                        <Product
+                            key={index}
+                            state={this.state}
+                            shoppingList={this.shoppingList}
+                            sneaker={sneaker}
+                            appMethods={this.appMethods}
+                        />
                     )
                 }
             </div>
