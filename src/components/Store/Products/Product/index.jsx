@@ -5,7 +5,11 @@ class Product extends Component {
         super(props)
         this.state = this.props.state
         this.sneaker = this.props.sneaker
-        this.methods = this.props.state.methods
+        this.shoppingList = this.props.shoppingList
+    }
+
+    addProductToList = function(product) {
+        this.shoppingList.push(product)
     }
 
     render() {
@@ -16,9 +20,7 @@ class Product extends Component {
                 <p style={productTitle}>{this.sneaker.name}</p>
                 <p>{this.sneaker.brand}</p>
                 <p>{price ? price : '100'} €</p>
-                <p style={productButton}
-                    onClick={() => this.methods.renderSneaker(this.sneaker.id, 1)}
-                >Add to card</p>
+                <p style={productButton} onClick={() => this.addProductToList(this.sneaker)}>Add to card</p>
             </div>
         )
     }

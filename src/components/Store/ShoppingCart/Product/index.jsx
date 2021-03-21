@@ -4,7 +4,9 @@ class ProductShoppingCart extends Component {
     render() {
         return (
             <div>
-                <img />
+                {
+                    // <img />
+                }
                 <p>Product name</p>
                 <p>66 E</p>
                 <form>
