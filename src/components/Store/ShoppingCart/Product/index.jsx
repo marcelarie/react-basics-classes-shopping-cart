@@ -23,13 +23,16 @@ class ProductShoppingCart extends Component {
     render() {
         const price = this.sneaker.retailPrice;
         return (
+            <>
+            <p style={shoppingProductTitle}>{this.sneaker.name}</p>
             <div style={shoppingProductContainer}>
-                <img style={{ width: '70px', flex: 1.5 }} src={this.sneaker.media.smallImageUrl} alt={this.sneaker.name} />
+                <div style={{ flex:2 }}>
+                    <img style={{ width: '100%', minWidth: '70px'}} src={this.sneaker.media.smallImageUrl} alt={this.sneaker.name} />
+                </div>
                 <form style={shoppingProductInfo}>
-                    <p style={shoppingProductTitle}>{this.sneaker.name}</p>
                     <button min="1" max="50" value={this.sneaker.quantity} onClick={(e) => this.handleChange(e, true)}>+</button>
                     {
-                        this.sneaker.quantity > 1 &&
+                    this.sneaker.quantity > 1 &&
                         <button min="1" max="50" value={this.sneaker.quantity} onClick={(e) => this.handleChange(e, false)}>-</button>
                     }
                     <p>x{this.sneaker.quantity}</p>
@@ -37,12 +40,13 @@ class ProductShoppingCart extends Component {
                     <button>Remove</button>
                 </form>
             </div>
+            </>
         )
     }
 }
 const shoppingProductTitle = {
     overflow: 'hidden',
-    width: '150px',
+    maxWidth: '150px',
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
     fontSize: '1em'
@@ -50,12 +54,13 @@ const shoppingProductTitle = {
 
 const shoppingProductContainer = {
     display: 'flex',
-    padding: '2em 0',
+    padding: '0 1em',
 }
 
 const shoppingProductInfo = {
     display: 'flex',
     flexDirection: 'column',
-    flex: 1
+    flex: 0.5,
+    margin: '0 1rem'
 }
 export default ProductShoppingCart
