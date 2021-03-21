@@ -53,7 +53,7 @@ class ShoppingCart extends Component {
                     this.shoppingStatus(result)
                 }
                 <hr />
-                <p>TOTAL {result.length && this.totalPrice(result)} €</p>
+                <p>TOTAL {result.length > 0 && this.totalPrice(result)} €</p>
                 <p>Checkout</p>
             </div >
         )

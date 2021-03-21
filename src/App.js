@@ -4,15 +4,14 @@ import ShoppingCart from './components/Store/ShoppingCart'
 import api from './api/data.js'
 
 import { Component } from 'react'
-// import { createContext } from 'react'
-
-// const appContext = createContext('0');
 
 class App extends Component {
     constructor() {
         super()
         this.state = {}
-        this.shoppingList = {}
+        this.shoppingList =
+            localStorage.getItem('shoppingList')
+                ? JSON.parse(localStorage.getItem('shoppingList')) : {}
         this.appMethods = {
             addToList: this.addToList.bind(this)
         }
@@ -21,6 +20,9 @@ class App extends Component {
     addToList = function(list) {
         this.shoppingList = list
         this.setState(this.state)
+
+        localStorage.setItem('shoppingList', JSON.stringify(list))
+        console.log()
     }
 
     render() {

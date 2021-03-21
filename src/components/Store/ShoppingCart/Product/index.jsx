@@ -13,9 +13,9 @@ class ProductShoppingCart extends Component {
         if (this.sneaker.quantity <= 1) {
             this.sneaker.quantity = 1
             mode && this.sneaker.quantity++;
+            this.addToList(this.props.shoppingList)
         } else {
             mode ? this.sneaker.quantity++ : this.sneaker.quantity--;
-            console.log(this.sneaker.quantity)
             this.addToList(this.props.shoppingList)
         }
         this.forceUpdate();
