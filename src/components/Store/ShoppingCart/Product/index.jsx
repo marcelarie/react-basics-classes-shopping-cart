@@ -1,56 +1,48 @@
-import { Component } from 'react'
 
-class ProductShoppingCart extends Component {
-    constructor(props) {
-        super(props)
-        this.sneaker = this.props.item
-        this.addToList = this.props.addToList
-        this.shoppingList = this.props.shoppingList
-    }
+function ProductShoppingCart({ sneaker, addToList, shoppingList }) {
 
-    handleChange = (e, mode) => {
+    const handleChange = (e, mode) => {
         e.preventDefault()
-        if (this.sneaker.quantity <= 1) {
-            this.sneaker.quantity = 1
-            mode && this.sneaker.quantity++;
-            this.addToList(this.props.shoppingList)
+        if (sneaker.quantity <= 1) {
+            sneaker.quantity = 1
+            mode && sneaker.quantity++;
+            addToList(shoppingList)
         } else {
-            mode ? this.sneaker.quantity++ : this.sneaker.quantity--;
-            this.addToList(this.props.shoppingList)
+            mode ? sneaker.quantity++ : sneaker.quantity--;
+            addToList(shoppingList)
         }
-        this.forceUpdate();
     }
 
-    removeItemOfCart = (event, id) => {
+    const removeItemOfCart = (event, id) => {
         event.preventDefault();
-        delete this.shoppingList[id]
-        this.addToList(this.props.shoppingList)
+        delete shoppingList[id]
+        addToList(shoppingList)
     }
 
-    render() {
-        const price = this.sneaker.retailPrice;
-        return (
-            <>
-                <p style={shoppingProductTitle}>{this.sneaker.name}</p>
-                <div style={shoppingProductContainer}>
-                    <div style={{ flex: 2 }}>
-                        <img style={{ width: '100%', minWidth: '70px' }} src={this.sneaker.media.smallImageUrl} alt={this.sneaker.name} />
-                    </div>
-                    <form style={shoppingProductInfo}>
-                        <button min="1" max="50" value={this.sneaker.quantity} onClick={(e) => this.handleChange(e, true)}>+</button>
-                        {
-                            this.sneaker.quantity > 1 &&
-                            <button min="1" max="50" value={this.sneaker.quantity} onClick={(e) => this.handleChange(e, false)}>-</button>
-                        }
-                        <p>x{this.sneaker.quantity}</p>
-                        <p>{price ? price * this.sneaker.quantity : 100 * this.sneaker.quantity} €</p>
-                        <button onClick={e => this.removeItemOfCart(e, this.sneaker.id)}>Remove</button>
-                    </form>
+    const price = sneaker.retailPrice;
+
+    return (
+        <>
+            <p style={shoppingProductTitle}>{sneaker.name}</p>
+            <div style={shoppingProductContainer}>
+                <div style={{ flex: 2 }}>
+                    <img style={{ width: '100%', minWidth: '70px' }} src={sneaker.media.smallImageUrl} alt={sneaker.name} />
                 </div>
-            </>
-        )
-    }
+                <form style={shoppingProductInfo}>
+                    <button min="1" max="50" value={sneaker.quantity} onClick={(e) => handleChange(e, true)}>+</button>
+                    {
+                        sneaker.quantity > 1 &&
+                        <button min="1" max="50" value={sneaker.quantity} onClick={(e) => handleChange(e, false)}>-</button>
+                    }
+                    <p>x{sneaker.quantity}</p>
+                    <p>{price ? price * sneaker.quantity : 100 * sneaker.quantity} €</p>
+                    <button onClick={e => removeItemOfCart(e, sneaker.id)}>Remove</button>
+                </form>
+            </div>
+        </>
+    )
 }
+
 const shoppingProductTitle = {
     overflow: 'hidden',
     maxWidth: '150px',

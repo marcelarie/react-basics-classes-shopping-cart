@@ -2,54 +2,47 @@ import HeaderStore from './components/Store/Header/HeaderStore'
 import Products from './components/Store/Products'
 import ShoppingCart from './components/Store/ShoppingCart'
 import api from './api/data.js'
+import { useState } from 'react'
+// import { Component } from 'react'
 
-import { Component } from 'react'
+function App() {
+    const [state, setState] = useState({})
 
-class App extends Component {
-    constructor() {
-        super()
-        this.state = {}
-        this.shoppingList =
-            localStorage.getItem('shoppingList')
-                ? JSON.parse(localStorage.getItem('shoppingList')) : {}
-        this.appMethods = {
-            addToList: this.addToList.bind(this)
-        }
-    }
+    const [shoppingList, setShoppingList] = useState(localStorage.getItem('shoppingList')
+        ? JSON.parse(localStorage.getItem('shoppingList')) : {})
 
-    addToList = function(list) {
-        this.shoppingList = list
-        this.setState(this.state)
-
+    const addToList = (list) => {
+        setShoppingList(list)
         localStorage.setItem('shoppingList', JSON.stringify(list))
-        console.log()
+        setState({ state })
     }
 
-    render() {
-        return (
-            <>
-                <HeaderStore />
+    const [appMethods, setAppMethods] = useState({ addToList });
 
-                <div style={appContainer}>
+    return (
+        <>
+            <HeaderStore />
 
-                    <Products
-                        api={api}
-                        state={this.state}
-                        appMethods={this.appMethods}
-                        shoppingList={this.shoppingList}
-                    />
+            <div style={appContainer}>
 
-                    <ShoppingCart
-                        api={api}
-                        shoppingList={this.shoppingList}
-                        appMethods={this.appMethods}
-                        state={this.state}
-                    />
+                <Products
+                    api={api}
+                    state={state}
+                    appMethods={appMethods}
+                    shoppingList={shoppingList}
+                    setState={setState}
+                />
 
-                </div>
-            </>
-        )
-    }
+                <ShoppingCart
+                    api={api}
+                    shoppingList={shoppingList}
+                    appMethods={appMethods}
+                    state={state}
+                />
+
+            </div>
+        </>
+    )
 }
 
 const appContainer = {
@@ -59,3 +52,5 @@ const appContainer = {
 }
 
 export default App;
+
+

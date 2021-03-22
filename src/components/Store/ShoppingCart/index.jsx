@@ -1,15 +1,10 @@
 import { Component } from 'react'
 import ProductShoppingCart from './Product'
 
-class ShoppingCart extends Component {
+function ShoppingCart({ shoppingList, appMethods}) {
 
-    constructor(props) {
-        super(props)
-        this.shoppingList = this.props.shoppingList
-        this.addToList = this.props.appMethods.addToList
-    }
-
-    convertToArray = function(object) {
+    const convertToArray = function(object) {
+        console.log( object )
         var array = []
         for (const key in object) {
             array.push(object[key])
@@ -17,21 +12,20 @@ class ShoppingCart extends Component {
         return array;
     }
 
-    shoppingStatus = (result) => {
+    const shoppingStatus = (result) => {
         if (result.length) {
             return result.map(item => {
                 return <ProductShoppingCart
-                    addToList={this.addToList}
-                    shoppingList={this.shoppingList}
-                    key={item.name} item={item} />
+                    addToList={appMethods.addToList}
+                    shoppingList={shoppingList}
+                    key={item.name} sneaker={item} />
             })
         } else {
             return <h5>No items on the list</h5>
         }
     }
 
-    totalPrice = (sneakerList) => {
-
+    const totalPrice = (sneakerList) => {
         let totalPrice = 0;
 
         sneakerList.forEach(item => {
@@ -42,28 +36,25 @@ class ShoppingCart extends Component {
         return totalPrice
     }
 
-    render() {
-        const result = this.convertToArray(this.shoppingList)
+    const result = convertToArray(shoppingList)
 
-        return (
-            <div style={shoppingCartContainer}>
-                <h3>Shopping Cart</h3>
-                <hr />
-                {
-                    this.shoppingStatus(result)
-                }
-                <hr />
-                <p>TOTAL {result.length > 0 && this.totalPrice(result)} €</p>
-                <p>Checkout</p>
-            </div >
-        )
-    }
+    return (
+        <div style={shoppingCartContainer}>
+            <h3>Shopping Cart</h3>
+            <hr />
+            {
+                shoppingStatus(result)
+            }
+            <hr />
+            <p>TOTAL {result.length > 0 && totalPrice(result)} €</p>
+           <p>Checkout</p>
+        </div>
+    ) 
 }
-
+        
 
 const shoppingCartContainer = {
     flex: 1,
-
 }
 
 export default ShoppingCart

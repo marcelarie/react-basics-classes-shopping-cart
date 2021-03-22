@@ -1,41 +1,32 @@
-import { Component } from 'react'
+import { useEffect } from 'react'
 
-class Product extends Component {
-    constructor(props) {
-        super(props)
-        this.state = this.props.state
-        this.sneaker = this.props.sneaker
-        this.shoppingList = this.props.shoppingList
-        this.addToList = this.props.appMethods.addToList
-    }
+function Product({ sneaker, shoppingList, appMethods }) {
 
-    addProductToList = function(product) {
-        const currentProductOnList = this.shoppingList[product.id];
+    const addProductToList = function(product) {
 
-        this.shoppingList[product.id] = product
+        const currentProductOnList = shoppingList[product.id];
+        shoppingList[product.id] = product
 
         // filter quantity 
         if (currentProductOnList) {
-            this.shoppingList[product.id].quantity++;
+            shoppingList[product.id].quantity++;
         } else {
-            this.shoppingList[product.id].quantity = 1;
+            shoppingList[product.id].quantity = 1;
         }
-
-        this.addToList(this.shoppingList)
+        appMethods.addToList(shoppingList)
     }
 
-    render() {
-        const price = this.sneaker.retailPrice;
-        return (
-            <div style={productContainer}>
-                <img style={{ width: '150px' }} src={this.sneaker.media.smallImageUrl} alt={this.sneaker.name} />
-                <p style={productTitle}>{this.sneaker.name}</p>
-                <p>{this.sneaker.brand}</p>
-                <p>{price ? price : '100'} €</p>
-                <p style={productButton} onClick={() => this.addProductToList(this.sneaker)}>Add to card</p>
-            </div>
-        )
-    }
+    const price = sneaker.retailPrice;
+
+    return (
+        <div style={productContainer}>
+            <img style={{ width: '150px' }} src={sneaker.media.smallImageUrl} alt={sneaker.name} />
+            <p style={productTitle}>{sneaker.name}</p>
+            <p>{sneaker.brand}</p>
+            <p>{price ? price : '100'} €</p>
+            <p style={productButton} onClick={() => addProductToList(sneaker)}>Add to card</p>
+        </div>
+    )
 }
 
 const productContainer = {

@@ -1,43 +1,34 @@
-import { Component } from 'react'
+import { useState, useEffect } from 'react'
 import Product from './Product'
 
-class Products extends Component {
+function Products({ state, api, shoppingList, appMethods }) {
 
-    constructor(props) {
-        super(props)
-        this.state = this.props.state
-        this.state.sneakers = []
-        this.api = this.props.api
-        this.shoppingList = this.props.shoppingList
-        this.appMethods = this.props.appMethods
-    }
+    const [sneakers, setSneakers] = useState([])
 
-    componentDidMount() {
-        this.api.then(api => {
-            const sneakers = api.data.results;
-            this.setState({ sneakers })
+    useEffect(() => {
+        api.then(api => {
+            const data = api.data.results;
+            setSneakers(data)
         })
-    }
+    }, [])
 
-    render() {
-        return (
-            <div style={mainProductsContainer}>
-                {
-                    this.state.sneakers.map((sneaker, index) =>
-                        sneaker.media.imageUrl
-                        &&
-                        <Product
-                            key={index}
-                            state={this.state}
-                            shoppingList={this.shoppingList}
-                            sneaker={sneaker}
-                            appMethods={this.appMethods}
-                        />
-                    )
-                }
-            </div>
-        )
-    }
+    return (
+        <div style={mainProductsContainer}>
+            {
+                sneakers.map((sneaker, index) =>
+                    sneaker.media.imageUrl &&
+                    < Product
+                        key={index}
+                        state={state}
+                        shoppingList={shoppingList}
+                        sneaker={sneaker}
+                        appMethods={appMethods}
+                    />
+                )
+            }
+        </div>
+    )
+
 }
 
 const mainProductsContainer = {

@@ -1,9 +1,7 @@
 import { Component } from 'react'
 
-class HeaderStore extends Component {
-    render() {
-        return <p style={style}>SNEAKER KNOCKERZ</p >
-    }
+function HeaderStore() {
+    return <p style={style}>SNEAKER KNOCKERZ</p >
 }
 
 const style = {
